@@ -1,0 +1,134 @@
+﻿@model AspNet_MVC5_Validation.Models.User
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("index","user",FormMethod.Post, new { @class= "form-horizontal" }))
+{
+    @Html.ValidationSummary(true);
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class="col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new  { @class="form-control"})
+            <br/>
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            <br />
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DOB, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control datecontrol" })
+            <br />
+            @Html.ValidationMessageFor(m => m.DOB)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Level, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Level, new { @class = "form-control " })
+            <br />
+            @Html.ValidationMessageFor(m => m.Level)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="OK" />
+        </div>
+        <input type="button" id="datetest" value="click me"/>
+    </div>
+
+}
+
+@section scripts{
+
+<script type="text/javascript">
+    (function ($) {
+
+        $('.datecontrol').datepicker({ dateFormat: "dd/MM/yyyy" });
+
+        $(document).ready(function () {
+            $("#datetest").on("click", function (e) {
+                var dateValue = new Date($("#DOB").val().substr(6));
+                console.log(dateValue);
+            });
+
+            
+        });
+        
+
+        var defaultOptions = {
+            validClass: 'has-success',
+            errorClass: 'has-error',
+            highlight: function (element, errorClass, validClass) {
+                $(element).closest(".form-group")
+                    .removeClass(validClass)
+                    .addClass('has-error');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).closest(".form-group")
+                .removeClass('has-error')
+                .addClass(validClass);
+            }
+        };
+
+        $.validator.setDefaults(defaultOptions);
+
+        $.validator.unobtrusive.options = {
+            errorClass: defaultOptions.errorClass,
+            validClass: defaultOptions.validClass,
+        };
+        /*
+        $.validator.addMethod('daterange',
+            function (value, element, param) {
+                var dateValue = $.datepicker.parseDate("dd/MM/yyyy", value);
+                console.log(dateValue);
+                return;
+                //var dateValue = null;
+                if (!value) {
+                    return false; // not testing 'is required' here!
+                }
+                try {
+                    dateValue = $.datepicker.parseDate("dd/MM/yyyy", value);
+                    //var dateValue = new Date($("#DOB").val().substr(6));
+                }
+                catch (e) {
+                    return false;
+                }
+                var start = new Date(param.mindate);
+                var end = new Date(param.maxdate);
+                return start <= dateValue && end <= param.maxdate;
+            });
+        
+        $.validator.unobtrusive.adapters.add('daterange', ['mindate', 'maxdate'],
+function (options) {
+    var params = {
+        mindate: $.datepicker.parseDate("dd/MM/yyyy", options.params.mindate),
+        maxdate: $.datepicker.parseDate("dd/MM/yyyy", options.params.maxdate)
+    };
+
+    options.rules['daterange'] = params;
+    if (options.message) {
+        options.messages['daterange'] = options.message;
+    }
+
+});
+    */
+    })(jQuery);
+    </script>    
+}
+
