@@ -17,7 +17,7 @@ Developed with Visual Studio 2015 Community
 ---
 
 #### REMOTE VALIDATION
-This example uses the Remote' attribute to check if an email already exists. A list of pre-defined emails has been specified, so using either "Henry@gmail.com", "Mary@gmail.com", "Philip@gmail.com" or "John@gmail.com" will display an error.
+This example uses the 'Remote' attribute to check if an email already exists. A list of pre-defined emails has been specified, so using either "Henry@gmail.com", "Mary@gmail.com", "Philip@gmail.com" or "John@gmail.com" will display an error.
 
 Navigate to 'http://localhost:[YOUR_PORT_HERE]/User/Register', and enter a name and one of the above emails.
 
