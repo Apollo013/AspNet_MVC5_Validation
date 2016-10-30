@@ -61,6 +61,11 @@ namespace AspNet_MVC5_Validation.Controllers
 
         }
 
+        /// <summary>
+        /// This is the method specified in the 'Remote' attribute for 'Email' property in 'RegisterVM' model
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult EmailAlreadyExists(string email)
         {

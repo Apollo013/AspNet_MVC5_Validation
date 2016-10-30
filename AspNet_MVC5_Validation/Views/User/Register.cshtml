@@ -34,3 +34,34 @@
         </div>
     </div>
 }
+
+@section scripts{
+
+        <script type="text/javascript">
+
+        (function ($) {
+
+            // The following sets up standard & unobtrusive validation to add/remove the error class 
+            // to the encapsulating 'form-group' when an error occurs.
+            var defaultOptions = {
+                validClass: 'has-success',
+                errorClass: 'has-error',
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest(".form-group").removeClass(validClass).addClass(errorClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest(".form-group").removeClass(errorClass).addClass(validClass);
+                }
+            };
+
+            $.validator.setDefaults(defaultOptions);
+
+            $.validator.unobtrusive.options = {
+                errorClass: defaultOptions.errorClass,
+                validClass: defaultOptions.validClass
+            };
+
+        }(jQuery));
+
+    </script>    
+}

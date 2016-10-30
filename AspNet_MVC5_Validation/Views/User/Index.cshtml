@@ -59,17 +59,11 @@
 <script type="text/javascript">
     (function ($) {
 
+        // Initialise datepicker
         $('.datecontrol').datepicker({ dateFormat: "dd/MM/yyyy" });
 
-        $(document).ready(function () {
-            $("#datetest").on("click", function (e) {
-                var dateValue = new Date($("#DOB").val().substr(6));
-                console.log(dateValue);
-            });
-
-            
-        });
-        
+        // The following sets up standard & unobtrusive validation to add/remove the error class 
+        // to the encapsulating 'form-group' when an error occurs.
 
         var defaultOptions = {
             validClass: 'has-success',
@@ -90,8 +84,10 @@
 
         $.validator.unobtrusive.options = {
             errorClass: defaultOptions.errorClass,
-            validClass: defaultOptions.validClass,
+            validClass: defaultOptions.validClass
         };
+
+
         /*
         $.validator.addMethod('daterange',
             function (value, element, param) {
