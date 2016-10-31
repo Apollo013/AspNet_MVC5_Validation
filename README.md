@@ -40,4 +40,4 @@ jQuery unobtrusive validation also demonstrated.
 |Title|Author|Website|
 |-----|------|-------|
 |[Remote Validation In ASP.NET MVC](http://www.c-sharpcorner.com/article/remote-validation-in-asp-net-mvc/)|Vithal Wadje|C# Corner|
-|[he Complete Guide To Validation In ASP.NET MVC](http://www.devtrends.co.uk/blog/the-complete-guide-to-validation-in-asp.net-mvc-3-part-1)||DevTrends|
+|[The Complete Guide To Validation In ASP.NET MVC](http://www.devtrends.co.uk/blog/the-complete-guide-to-validation-in-asp.net-mvc-3-part-1)||DevTrends|
