@@ -39,11 +39,11 @@ namespace AspNet_MVC5_Validation
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
-            ModelClientValidationRule rule = new ModelClientValidationRule();
+            var rule = new ModelClientValidationRule();
+            rule.ValidationType = "phonemaskvalidation";
             rule.ValidationParameters["mask"] = _mask;
             rule.ErrorMessage = FormatErrorMessage(metadata.GetDisplayName());
-            rule.ValidationType = "phonemaskvalidation";
-            return new[] { rule };
+            yield return rule;
         }
 
 

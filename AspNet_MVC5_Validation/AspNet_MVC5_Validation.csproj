@@ -129,7 +129,6 @@
     <Compile Include="Models\RegisteredUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\DateRangeAttribute.cs" />
-    <Compile Include="Validators\DateValidatorAttribute.cs" />
     <Compile Include="Validators\PhoneMaskValidationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

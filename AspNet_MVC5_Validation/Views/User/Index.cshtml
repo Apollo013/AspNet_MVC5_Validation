@@ -33,134 +33,115 @@
         <input type="button" id="datetest" value="click me"/>
     </div>
 
+    <p id="display"></p>
 }
 
 @section scripts{
 
-<script type="text/javascript">
-    (function ($) {
+    <script type="text/javascript">
+        (function ($) {
 
-        // Initialise datepicker
-        $('.datecontrol').datepicker({ dateFormat: "dd/MM/yyyy" });
+            // Initialise datepicker
+            $('.datecontrol').datepicker({ dateFormat: "dd/MM/yyyy" });
 
-        /*--------------------------------------------------------------------------------------------
-        The following sets up unobtrusive validation to add/remove the error class
-        to the encapsulating 'form-group' of an element when validation fails.
-        --------------------------------------------------------------------------------------------*/
-        var defaultOptions = {
-            validClass: 'has-success',
-            errorClass: 'has-error',
-            highlight: function (element, errorClass, validClass) {
-                $(element).closest(".form-group")
-                    .removeClass(validClass)
-                    .addClass('has-error');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).closest(".form-group")
-                .removeClass('has-error')
-                .addClass(validClass);
-            }
-        };
-
-        $.validator.setDefaults(defaultOptions);
-
-        $.validator.unobtrusive.options = {
-            errorClass: defaultOptions.errorClass,
-            validClass: defaultOptions.validClass
-        };
-
-
-        /*--------------------------------------------------------------------------------------------
-        Phone Number Mask Validation
-        --------------------------------------------------------------------------------------------*/
-        $.validator.addMethod('phonemaskvalidation', function (value, element, params) {
-            var mask = params.mask;
-            var len = mask.length;
-
-            // Is required
-            if (value === '') {
-                return false;
-            }
-            
-            // Must have same length
-            if (value.length != len) {
-                return false;
-            }
-
-            // Must match mask
-            for(var i = 0 ; i < len ; i++){
-                if(mask[i]='d' && !$.isNumeric(value[i])) {
-                    return false;
+            /*--------------------------------------------------------------------------------------------
+            The following sets up unobtrusive validation to add/remove the error class
+            to the encapsulating 'form-group' of an element when validation fails.
+            --------------------------------------------------------------------------------------------*/
+            var defaultOptions = {
+                validClass: 'has-success',
+                errorClass: 'has-error',
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest(".form-group")
+                        .removeClass(validClass)
+                        .addClass('has-error');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest(".form-group")
+                    .removeClass('has-error')
+                    .addClass(validClass);
                 }
-                if (mask[i] = '-' && value[i] !== '-') {
-                    return false;
-                }
-            }
-
-            return true;
-        }, '');
-
-        $.validator.unobtrusive.adapters.add('phonemaskvalidation', ['mask'], function (options) {
-            options.rules['phonemaskvalidation'] = {
-                mask: options.params.mask
-            };
-            options.messages['phonemaskvalidation'] = options.message;
-        });
-
-
-        /*--------------------------------------------------------------------------------------------
-        Date Range Validation
-        --------------------------------------------------------------------------------------------*/
-
-        /*
-        
-
-        $.validator.unobtrusive.adapters.add('phonemaskvalidation', ['mask'], function (options) {
-            var params = {
-                mask:
             };
 
-            options.rules['phonemaskvalidation'] = params;
-            options.messages['phonemaskvalidation'] = options.message;
-        });
+            $.validator.setDefaults(defaultOptions);
 
-        
-        $.validator.addMethod('daterange',
-            function (value, element, param) {
-                var dateValue = $.datepicker.parseDate("dd/MM/yyyy", value);
-                console.log(dateValue);
-                return;
-                //var dateValue = null;
-                if (!value) {
-                    return false; // not testing 'is required' here!
-                }
-                try {
-                    dateValue = $.datepicker.parseDate("dd/MM/yyyy", value);
-                    //var dateValue = new Date($("#DOB").val().substr(6));
-                }
-                catch (e) {
+            $.validator.unobtrusive.options = {
+                errorClass: defaultOptions.errorClass,
+                validClass: defaultOptions.validClass
+            };
+
+
+            /*--------------------------------------------------------------------------------------------
+            Phone Number Mask Validation
+            --------------------------------------------------------------------------------------------*/
+            $.validator.addMethod('phonemaskvalidation', function (value, element, params) {
+                var mask = params.mask;
+                var len = mask.length;
+
+                // Is required
+                if (value === '') {
                     return false;
                 }
-                var start = new Date(param.mindate);
-                var end = new Date(param.maxdate);
-                return start <= dateValue && end <= param.maxdate;
+
+                // Must have same length
+                if (value.length != len) {
+                    return false;
+                }
+
+                // Must match mask
+                for (var i = 0 ; i < len ; i++) {
+                    if (mask[i] === 'd' && !$.isNumeric(value[i])) {
+                        return false;
+                    }
+                    if (mask[i] === '-' && value[i] !== '-') {
+                        return false;
+                    }
+                }
+
+                // We're good
+                return true;
+            }, '');
+
+            $.validator.unobtrusive.adapters.add('phonemaskvalidation', ['mask'], function (options) {
+                options.rules['phonemaskvalidation'] = {
+                    mask: options.params.mask
+                };
+                options.messages['phonemaskvalidation'] = options.message;
             });
-        
-        $.validator.unobtrusive.adapters.add('daterange', ['mindate', 'maxdate'],
-function (options) {
-    var params = {
-        mindate: $.datepicker.parseDate("dd/MM/yyyy", options.params.mindate),
-        maxdate: $.datepicker.parseDate("dd/MM/yyyy", options.params.maxdate)
-    };
 
-    options.rules['daterange'] = params;
-    if (options.message) {
-        options.messages['daterange'] = options.message;
-    }
 
-});
-    */
-    })(jQuery);
+            /*--------------------------------------------------------------------------------------------
+            Date Range Validation
+            --------------------------------------------------------------------------------------------*/
+            $.validator.addMethod('daterange', function (value, element, params) {                
+                // Is required
+                if (value === '') {
+                    return false;
+                }
+
+                var minDate = parseDate(params.mindate);
+                var maxDate = parseDate(params.maxdate);
+                var date = parseDate(value);
+
+                // Check Range
+                return (date >= minDate && date <= maxDate);
+            });
+
+
+            $.validator.unobtrusive.adapters.add('daterange', ['mindate', 'maxdate'], function (options) {
+                options.rules['daterange'] = {
+                    mindate: options.params.mindate,
+                    maxdate: options.params.maxdate
+                }
+                options.messages['daterange'] = options.message;
+            });
+
+            function parseDate(date) {
+                var parts = date.split('/');
+                return new Date(parts[2], parts[1] - 1, parts[0]);
+            }
+
+        })(jQuery);
     </script>    
 }
 
