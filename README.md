@@ -35,6 +35,8 @@ This example shows how to create a custom validator that derives from 'Validatio
 
 jQuery unobtrusive validation also demonstrated.
 
+Navigate to 'http://localhost:[YOUR_PORT_HERE]/User'.
+
 ##### CODE FILES: 'User', 'UserController', 'PhoneMaskValidationAttribute' & 'Index.cshtml'
 ---
 
