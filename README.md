@@ -19,7 +19,7 @@ Developed with Visual Studio 2015 Community
 #### REMOTE VALIDATION
 This example uses the 'Remote' attribute to check if an email already exists. A list of pre-defined emails has been specified, so using either "Henry@gmail.com", "Mary@gmail.com", "Philip@gmail.com" or "John@gmail.com" will display an error.
 
-This example also uses some built-in MVC validation attributes & jQuery unobtrusive validation.
+This example also uses built-in MVC validation attributes & jQuery unobtrusive validation.
 
 Navigate to 'http://localhost:[YOUR_PORT_HERE]/User/Register', and enter a name and one of the above emails.
 
@@ -29,9 +29,9 @@ Navigate to 'http://localhost:[YOUR_PORT_HERE]/User/Register', and enter a name 
 
 #### CUSTOM PHONE MASK VALIDATION
 
-This example shows how to create a custom validator that derives from 'ValidationAttribute' and implements 'IClientValidatable'.
+This example shows how to create a custom validator that derives from 'ValidationAttribute' and implements 'IClientValidatable'. It's purpose is to ensure that a provided phone number matches a specified pattern.
 
-It's purpose is to ensure that a provided phone number matches a specified pattern.
+jQuery unobtrusive validation also demonstrated.
 
 ##### CODE FILES: 'User', 'UserController', 'PhoneMaskValidationAttribute' & 'Index.cshtml'
 ---
