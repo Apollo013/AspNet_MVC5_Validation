@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AspNet_MVC5_Validation.Models
 {
-    public class Users : IEnumerable
+    public class RegisteredUsers : IEnumerable
     {
         private Dictionary<string, RegisterVM> users = new Dictionary<string, RegisterVM>();
 
@@ -49,6 +49,7 @@ namespace AspNet_MVC5_Validation.Models
         {
             return users.Values.ToList();
         }
+
         public IEnumerator GetEnumerator()
         {
             return users.GetEnumerator();

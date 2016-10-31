@@ -18,6 +18,10 @@ namespace AspNet_MVC5_Validation.Models
         [Remote("EmailAlreadyExists", "User", HttpMethod = "POST", ErrorMessage = "Email already Exists")]
         public string Email { get; set; }
 
+        [Range(1, 4, ErrorMessage = "Please specify a value between 1 and 4")]
+        public byte Level { get; set; }
+
+
         public bool Equals(RegisterVM other)
         {
             return this.Email.ToLower().Equals(other.Email.ToLower());

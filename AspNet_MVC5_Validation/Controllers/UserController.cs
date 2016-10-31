@@ -6,11 +6,11 @@ namespace AspNet_MVC5_Validation.Controllers
 {
     public class UserController : Controller
     {
-        Users registeredUsers;
+        RegisteredUsers registeredUsers;
 
         public UserController()
         {
-            registeredUsers = new Users();
+            registeredUsers = new RegisteredUsers();
             registeredUsers.Add(new RegisterVM() { Name = "Henry", Email = "Henry@gmail.com" });
             registeredUsers.Add(new RegisterVM() { Name = "Mary", Email = "Mary@gmail.com" });
             registeredUsers.Add(new RegisterVM() { Name = "Phil", Email = "Philip@gmail.com" });
@@ -18,21 +18,23 @@ namespace AspNet_MVC5_Validation.Controllers
         }
 
         // GET: User
+        [HttpGet]
         public ActionResult Index()
         {
-            return View(new User());
+            return View(new ValidationTestModel());
         }
 
         [HttpPost]
-        public ActionResult Index(User user)
+        public ActionResult Index(ValidationTestModel user)
         {
             if (ModelState.IsValid)
             {
                 // Do whatever posting needs to be done here
-                return View(new User() { Email = "Go Agaion" });
+                ModelState.Clear();
+                return View(new ValidationTestModel());
 
             }
-            return View(user);
+            return View();
         }
 
         [HttpGet]
@@ -58,7 +60,6 @@ namespace AspNet_MVC5_Validation.Controllers
                 Debug.WriteLine($"FAILED - {registeredUsers.Count}");
                 return View();
             }
-
         }
 
         /// <summary>
@@ -73,6 +74,5 @@ namespace AspNet_MVC5_Validation.Controllers
             Debug.WriteLine(registeredUsers[email] == null);
             return Json(registeredUsers[email] == null);
         }
-
     }
 }

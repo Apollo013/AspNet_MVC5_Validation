@@ -1,4 +1,4 @@
-﻿@model AspNet_MVC5_Validation.Models.User
+﻿@model AspNet_MVC5_Validation.Models.ValidationTestModel
 @{
     ViewBag.Title = "Index";
 }
@@ -10,38 +10,19 @@
     @Html.ValidationSummary(true);
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class="col-md-2 control-label"})
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new  { @class="form-control"})
-            <br/>
-            @Html.ValidationMessageFor(m => m.Name)
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            <br />
-            @Html.ValidationMessageFor(m => m.Email)
-        </div>
-    </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.DOB, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.DOB, new { @class = "form-control datecontrol" })
-            <br />
-            @Html.ValidationMessageFor(m => m.DOB)
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Level, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Level, new { @class = "form-control " })
-            <br />
-            @Html.ValidationMessageFor(m => m.Level)
+            @Html.ValidationMessageFor(m => m.DOB,"", new {@class="text-danger" })
         </div>
     </div>
 
@@ -62,9 +43,10 @@
         // Initialise datepicker
         $('.datecontrol').datepicker({ dateFormat: "dd/MM/yyyy" });
 
-        // The following sets up standard & unobtrusive validation to add/remove the error class 
-        // to the encapsulating 'form-group' when an error occurs.
-
+        /*--------------------------------------------------------------------------------------------
+        The following sets up unobtrusive validation to add/remove the error class
+        to the encapsulating 'form-group' of an element when validation fails.
+        --------------------------------------------------------------------------------------------*/
         var defaultOptions = {
             validClass: 'has-success',
             errorClass: 'has-error',
@@ -88,7 +70,61 @@
         };
 
 
+        /*--------------------------------------------------------------------------------------------
+        Phone Number Mask Validation
+        --------------------------------------------------------------------------------------------*/
+        $.validator.addMethod('phonemaskvalidation', function (value, element, params) {
+            var mask = params.mask;
+            var len = mask.length;
+
+            // Is required
+            if (value === '') {
+                return false;
+            }
+            
+            // Must have same length
+            if (value.length != len) {
+                return false;
+            }
+
+            // Must match mask
+            for(var i = 0 ; i < len ; i++){
+                if(mask[i]='d' && !$.isNumeric(value[i])) {
+                    return false;
+                }
+                if (mask[i] = '-' && value[i] !== '-') {
+                    return false;
+                }
+            }
+
+            return true;
+        }, '');
+
+        $.validator.unobtrusive.adapters.add('phonemaskvalidation', ['mask'], function (options) {
+            options.rules['phonemaskvalidation'] = {
+                mask: options.params.mask
+            };
+            options.messages['phonemaskvalidation'] = options.message;
+        });
+
+
+        /*--------------------------------------------------------------------------------------------
+        Date Range Validation
+        --------------------------------------------------------------------------------------------*/
+
         /*
+        
+
+        $.validator.unobtrusive.adapters.add('phonemaskvalidation', ['mask'], function (options) {
+            var params = {
+                mask:
+            };
+
+            options.rules['phonemaskvalidation'] = params;
+            options.messages['phonemaskvalidation'] = options.message;
+        });
+
+        
         $.validator.addMethod('daterange',
             function (value, element, param) {
                 var dateValue = $.datepicker.parseDate("dd/MM/yyyy", value);

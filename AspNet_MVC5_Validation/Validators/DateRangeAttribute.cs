@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Globalization;
 using System.Web.Mvc;
 
@@ -11,8 +12,8 @@ namespace AspNet_MVC5_Validation
         private const string DateFormat = "dd/MM/yyyy";
         private const string DefaultErrorMessage = "'{0}' must be a date between {1:d} and {2:d}.";
 
-        public DateTime MinDate { get; set; }
-        public DateTime MaxDate { get; set; }
+        public DateTime MinDate { get; private set; }
+        public DateTime MaxDate { get; private set; }
 
         public DateRangeAttribute(string minDate, string maxDate) : base(DefaultErrorMessage)
         {
@@ -27,6 +28,7 @@ namespace AspNet_MVC5_Validation
                 return false;
             }
             DateTime dateValue = (DateTime)value;
+            Debug.WriteLine($"{dateValue} - {MinDate} - {MaxDate}");
             return MinDate <= dateValue && dateValue <= MaxDate;
         }
         public override string FormatErrorMessage(string name)
