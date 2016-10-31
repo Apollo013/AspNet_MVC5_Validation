@@ -1,6 +1,6 @@
 # AspNet_MVC5_Validation
 
-MVC5 app demonstrating some validation implementations including remote validation, custom &amp; builtin attributes
+An MVC5 app demonstrating various validation implementations using remote, custom & builtin attributes, along with jQuery unobtrusive validation
 
 ---
 
@@ -23,6 +23,17 @@ This example also uses some built-in MVC validation attributes & jQuery unobtrus
 
 Navigate to 'http://localhost:[YOUR_PORT_HERE]/User/Register', and enter a name and one of the above emails.
 
+##### CODE FILES: 'RegisterVM', 'UserController' & 'Register.cshtml'
+
+---
+
+#### CUSTOM PHONE MASK VALIDATION
+
+This example shows how to create a custom validator that derives from 'ValidationAttribute' and implements 'IClientValidatable'.
+
+It's purpose is to ensure that a provided phone number matches a specified pattern.
+
+##### CODE FILES: 'User', 'UserController', 'PhoneMaskValidationAttribute' & 'Index.cshtml'
 ---
 
 ###Resources
