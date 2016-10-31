@@ -41,7 +41,7 @@ Navigate to 'http://localhost:[YOUR_PORT_HERE]/User'.
 
 ---
 
-#### CUSTOM PHONE MASK VALIDATION
+#### CUSTOM DATE RANGE VALIDATION
 
 This example shows how to create a custom validator that derives from 'ValidationAttribute' and implements 'IClientValidatable'. It's purpose is to ensure that a specified date is within a certain range.
 
